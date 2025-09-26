@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ETERNIX - Next-Gen Streaming UI</title>
+    <!-- Load Tailwind CSS via CDN for rapid, responsive styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <style>
+        /* * Custom CSS Magic for High Impact
+         * These sections give the UI its professional, polished look. 
+         */
+
+        /* 1. Global Theme and Scrollbar */
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #000; /* True black background for depth */
+            color: #e5e5e5;
+        }
+        
+        /* Custom Dark Scrollbar (A subtle touch of professionalism) */
+        .movie-row::-webkit-scrollbar {
+            height: 8px;
+        }
+        .movie-row::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .movie-row::-webkit-scrollbar-thumb {
+            background: #444; /* Dark gray for subtle visibility */
+            border-radius: 4px;
+        }
+
+        /* 2. Hero Banner Fade Gradient (Crucial Netflix Look) */
+        /* Creates a smooth, cinematic blend into the black background */
+        .hero-banner::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 12rem; /* Extended fade height for cinematic feel */
+            /* This gradient ensures the dark red background blends perfectly into the black page background */
+            background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0) 10%, rgba(0, 0, 0, 0.7) 50%, rgba(0, 0, 0, 1) 100%);
+            pointer-events: none;
+        }
+
+        /* 3. Movie Card Hover Effect (The "Pop Out" Feature) */
+        .movie-card {
+            /* Simple, readable transition timing */
+            transition: transform 0.4s ease-in-out; 
+            cursor: pointer;
+            width: 180px; /* Base size */
+            flex-shrink: 0;
+            position: relative;
+        }
+        
+        @media (max-width: 640px) {
+            .movie-card {
+                width: 120px; /* Mobile width */
+            }
+        }
+
+        .movie-card:hover {
+            transform: scale(1.15) translate(0, -15px); /* Aggressive pop out with slight upward lift */
+            z-index: 10; 
+            /* Subtle white glow shadow for a premium feel */
+            box-shadow: 0 15px 30px rgba(255, 255, 255, 0.15); 
+            border-radius: 0.5rem;
+        }
+
+        /* Button Aesthetics */
+        .primary-btn {
+            background-color: white;
+            color: black;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+        }
+        .secondary-btn {
+            background-color: rgba(109, 109, 110, 0.7);
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    
+    <!-- HEADER / NAVIGATION BAR -->
+    <header class="fixed top-0 left-0 right-0 z-20 flex items-center justify-between p-4 md:px-10 bg-black/95">
+        <div class="flex items-center space-x-6">
+            <!-- Personalized and bold Branding (ETERNIX) -->
+            <h1 class="text-4xl font-extrabold text-red-700 tracking-wider">ETERNIX</h1>
+            <!-- Navigation Links -->
+            <nav class="hidden space-x-6 text-sm md:flex">
+                <a href="#" class="font-semibold text-white hover:text-red-500 transition duration-150">Home</a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-150">TV Shows</a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-150">Originals</a>
+                <a href="#" class="text-gray-400 hover:text-white transition duration-150">My List</a>
+            </nav>
+        </div>
+        
+        <!-- User Profile/Icons -->
+        <div class="flex items-center space-x-4">
+            <!-- Search Icon (High contrast SVG) -->
+            <svg class="w-6 h-6 text-white cursor-pointer hover:text-gray-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+            <span class="hidden text-sm md:inline font-medium text-red-500">SHIVAM's Account</span>
+            <!-- Profile Avatar Placeholder -->
+            <div class="w-8 h-8 bg-purple-600 rounded-md cursor-pointer ring-2 ring-white/70"></div>
+        </div>
+    </header>
+
+    <!-- HERO BANNER SECTION -->
+    <main>
+        <!-- Static Hero Banner Background - Now uses a local Tailwind class for the color -->
+        <div class="relative hero-banner h-[75vh] md:h-[95vh] bg-cover bg-center transition-all duration-500 bg-[#4A0000]" 
+             id="hero-banner">
+            
+            <div class="absolute inset-0 bg-black/40"></div> <!-- Dark overlay for text contrast -->
+            
+            <div class="absolute bottom-0 p-6 md:p-16 mb-10 md:mb-20 max-w-lg md:max-w-3xl">
+                <!-- Movie Details -->
+                <p class="text-lg md:text-xl font-bold text-red-500 mb-2 drop-shadow-lg" id="movie-tag">#ETERNIX ORIGINAL MOVIE</p>
+                <h2 class="text-4xl md:text-7xl font-extrabold mb-4 drop-shadow-xl text-white" id="movie-title">THE CORE BREAKER</h2>
+                <!-- Description -->
+                <p class="text-sm md:text-xl mb-8 text-white drop-shadow-md hidden sm:block" id="movie-description">
+                    In a world of explosive data and digital warfare, one programmer risks everything to break the ultimate loop. Action, thrill, and code—this is the final test.
+                </p>
+                
+                <!-- Play/Info Buttons -->
+                <div class="flex flex-col md:flex-row md:items-center space-y-4 md:space-y-0 md:space-x-4">
+                    <!-- Standard Buttons -->
+                    <button class="flex items-center px-8 py-3 text-lg font-bold rounded-xl primary-btn hover:opacity-80 transition duration-200">
+                        <svg class="w-6 h-6 mr-3" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M6 3v18l15-9L6 3z"></path></svg>
+                        Play Trailer
+                    </button>
+                    <button class="flex items-center px-8 py-3 text-lg font-bold rounded-xl secondary-btn hover:bg-white/30 transition duration-200">
+                        <svg class="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        Add to Watchlist
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- MOVIE ROWS SECTION -->
+        <section class="py-10 -mt-20 md:-mt-40 relative z-10">
+            
+            <!-- Row 1: The Coder's Corner: Trending (Vertical Posters) -->
+            <div class="mb-12">
+                <h3 class="text-xl md:text-3xl font-bold mb-4 ml-6 md:ml-10 hover:text-white/80 cursor-pointer">The Coder's Corner: Trending</h3>
+                <div id="row-1-posters" class="flex space-x-4 md:space-x-6 px-6 md:px-10 overflow-x-scroll movie-row">
+                    <!-- Unique Static Vertical Poster Placeholders (Simulating generated content) -->
+                    <div class="movie-card"><img src="https://placehold.co/180x270/0A3D62/FFFFFF?text=Hacker%0ADARK+CODE" alt="Hacker Dark Code Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl"></div>
+                    <div class="movie-card"><img src="https://placehold.co/180x270/6C3483/FFFFFF?text=Action%0ASNOW+TRAIN" alt="Snow Train Action Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl"></div>
+                    <div class="movie-card"><img src="https://placehold.co/180x270/283747/F5B041?text=Thriller%0ARAIN+CITY" alt="Rain City Thriller Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl"></div>
+                    <div class="movie-card"><img src="https://placehold.co/180x270/073B4C/A8DADC?text=Sci-Fi%0AMEGACITY" alt="Megacity Sci-Fi Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl"></div>
+                    <div class="movie-card"><img src="https://placehold.co/180x270/222222/FF0000?text=Horror%0AGOTHIC+HOUSE" alt="Gothic Horror Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl"></div>
+                    <div class="movie-card"><img src="https://placehold.co/180x270/F39C12/2C3E50?text=Heist%0AVAULT+BREAK" alt="Vault Break Heist Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl"></div>
+                    <div class="movie-card"><img src="https://placehold.co/180x270/6E1E1E/B8B8B8?text=War%0ABATTLEFIELD" alt="Battlefield War Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl"></div>
+                    <div class="movie-card"><img src="https://placehold.co/180x270/B07A00/FFFFFF?text=Action%0ADESERT+RACE" alt="Desert Race Action Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl"></div>
+                </div>
+            </div>
+
+            <!-- Row 2: Epic Sci-Fi Thrillers (Landscape Format - Static Placeholders) -->
+            <div class="mb-12">
+                <h3 class="text-xl md:text-3xl font-bold mb-4 ml-6 md:ml-10 hover:text-white/80 cursor-pointer">Epic Sci-Fi Thrillers (Landscape)</h3>
+                <div class="flex space-x-4 md:space-x-6 px-6 md:px-10 overflow-x-scroll movie-row">
+                    <!-- Landscape cards (16:9 aspect) - Static placeholders for dimension variety -->
+                    <div class="movie-card !w-[300px] sm:!w-[350px]">
+                        <img src="https://placehold.co/350x197/1e293b/ffffff?text=NEBULA+WARS" alt="Series Thumbnail" class="object-cover w-full h-auto rounded-xl shadow-2xl">
+                    </div>
+                    <div class="movie-card !w-[300px] sm:!w-[350px]">
+                        <img src="https://placehold.co/350x197/5b21b6/ffffff?text=TIME+SHIFT" alt="Series Thumbnail" class="object-cover w-full h-auto rounded-xl shadow-2xl">
+                    </div>
+                    <div class="movie-card !w-[300px] sm:!w-[350px]">
+                        <img src="https://placehold.co/350x197/a16207/000000?text=QUANTUM+LEAP" alt="Series Thumbnail" class="object-cover w-full h-auto rounded-xl shadow-2xl">
+                    </div>
+                     <div class="movie-card !w-[300px] sm:!w-[350px]">
+                        <img src="https://placehold.co/350x197/3f6212/ffffff?text=MATRIX+ZERO" alt="Series Thumbnail" class="object-cover w-full h-auto rounded-xl shadow-2xl">
+                    </div>
+                     <div class="movie-card !w-[300px] sm:!w-[350px]">
+                        <img src="https://placehold.co/350x197/be123c/ffffff?text=RED+PLANET" alt="Series Thumbnail" class="object-cover w-full h-auto rounded-xl shadow-2xl">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Row 3: Top Picks For SHIVAM (Vertical Posters) -->
+            <div class="mb-12">
+                <div class="flex items-center space-x-4 ml-6 md:ml-10 mb-4">
+                    <h3 class="text-xl md:text-3xl font-bold hover:text-white/80 cursor-pointer">Top Picks For SHIVAM</h3>
+                </div>
+                
+                <div id="top-picks-row" class="flex space-x-4 md:space-x-6 px-6 md:px-10 overflow-x-scroll movie-row">
+                    <!-- Unique Static Vertical Poster Placeholders (Simulating generated content) -->
+                    <div class="movie-card"><img src="https://placehold.co/180x270/D35400/FFFFFF?text=Drama%0AFAMILY+GATHERING" alt="Family Drama Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl transition-all duration-300"></div>
+                    <div class="movie-card"><img src="https://placehold.co/180x270/1A5276/FFFFFF?text=Political%0ACALCULATING" alt="Political Thriller Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl transition-all duration-300"></div>
+                    <div class="movie-card"><img src="https://placehold.co/180x270/3498DB/FFFFFF?text=Romance%0AYOUTH+COAST" alt="Youth Romance Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl transition-all duration-300"></div>
+                    <div class="movie-card"><img src="https://placehold.co/180x270/27AE60/FFFFFF?text=Comedy%0AHILARIOUS+FRIENDS" alt="Comedy Film Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl transition-all duration-300"></div>
+                    <div class="movie-card"><img src="https://placehold.co/180x270/8E44AD/FFFFFF?text=Biopic%0AATHLETE" alt="Athlete Biopic Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl transition-all duration-300"></div>
+                    <div class="movie-card"><img src="https://placehold.co/180x270/A93226/FFFFFF?text=Drama%0ANOSTALGIA" alt="Nostalgia Drama Poster" class="object-cover w-full h-auto rounded-xl shadow-2xl transition-all duration-300"></div>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <!-- FOOTER (Includes your requested credit and name) -->
+    <footer class="p-8 mt-16 text-center text-gray-400 border-t border-gray-800">
+        <div class="space-y-2">
+            <p class="text-lg font-bold text-white">Project ETERNIX - Clone Project</p>
+            <p class="text-sm">Created by: <span class="text-red-600 font-semibold">SHIVAM</span></p>
+            <p class="text-xs italic">Designed with **Pure HTML, Custom CSS Magic & Static Placeholders**.</p>
+        </div>
+    </footer>
+    
+    <!-- Empty script block as all dynamic logic has been removed -->
+    <script>
+        // All dynamic image loading and local storage logic has been removed.
+        // The images are now set statically in the HTML body for instant loading.
+    </script>
+</body>
+</html>
